@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f3ec" />
+    <meta
+      name="description"
+      content="Kopi Inc: kopi yang diracik dengan niat baik, teman untuk jeda kecilmu."
+    />
+    <title>Kopi Inc — Temukan jedamu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Kopi Inc, ke halaman awal">
+        <span class="brand-mark" aria-hidden="true">K<span>.</span></span>
+        <span>KopiInc™<span class="brand-sub">KOPI PARA KORPORAT</span></span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navigasi utama">
+        <a class="nav-link" href="#cuaca">Cuaca</a>
+        <a class="nav-link" href="#menu">Menu</a>
+        <a class="nav-link" href="#cerita">Cerita kami</a>
+        <a class="nav-link" href="#kunjungi">Kunjungi</a>
+      </nav>
+
+      <a class="header-cta" href="#menu">
+        Lihat menu <span aria-hidden="true">↗</span>
+      </a>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="eyebrow-dot"></span> KOPI LOKAL, CERITA PERSONAL
+          </p>
+          <h1 id="hero-title">Temukan<br />jeda <span>kecilmu.</span></h1>
+          <p class="hero-description">
+            Kopi yang diracik dengan niat baik, ruang yang terasa akrab, dan
+            waktu untuk menikmati waktu santai saat luang.
+          </p>
+          <div class="hero-actions">
+            <a class="hero-link" href="#menu"
+              >Kenalan dengan menu <span aria-hidden="true">↓</span></a
+            >
+            <span class="hero-hours"
+              ><span aria-hidden="true">◷</span> Buka setiap hari,
+              08.00–22.00</span
+            >
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Suasana hangat di kedai KopiInc">
+          <img
+            class="hero-image"
+            src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1400&q=85"
+            alt="Interior kedai kopi hangat dengan meja kayu dan cahaya matahari"
+          />
+          <div class="hero-note">
+            <span class="note-icon" aria-hidden="true">✳</span>
+            <span
+              ><strong>Diracik dengan hati</strong
+              ><small>biji pilihan, selalu segar</small></span
+            >
+          </div>
+          <span class="hero-image-caption">KopiInc · SEJAK 2026</span>
+        </div>
+        <div class="hero-index" aria-hidden="true">
+          KopiInc <span></span> 01
+        </div>
+      </section>
+
+      <section
+        class="weather-section"
+        id="cuaca"
+        aria-labelledby="weather-title"
+      >
+        <div class="weather-heading">
+          <div>
+            <p class="eyebrow">MENU KAMI NGIKUTIN LANGITMU</p>
+            <h2 id="weather-title">
+              Cuaca hari ini, <span>seduhan yang pas.</span>
+            </h2>
+          </div>
+          <button class="weather-refresh" id="weather-refresh" type="button">
+            <span aria-hidden="true">↻</span> Perbarui cuaca
+          </button>
+        </div>
+        <div class="weather-panel">
+          <div class="weather-current">
+            <div class="weather-current-top">
+              <span class="weather-live"
+                ><span></span>
+                <span id="weather-status">Mengambil data cuaca...</span></span
+              >
+              <span class="weather-location">TANGERANG SELATAN</span>
+            </div>
+            <div class="weather-condition">
+              <span class="weather-icon" id="weather-icon" aria-hidden="true"
+                >☁</span
+              >
+              <div>
+                <strong class="weather-temperature" id="weather-temperature"
+                  >--°</strong
+                >
+                <span class="weather-description" id="weather-description"
+                  >Memuat kondisi cuaca</span
+                >
+              </div>
+            </div>
+            <div class="weather-meta" id="weather-meta">
+              Terasa seperti --° <span>·</span> Kelembapan --%
+            </div>
+            <p class="weather-updated" id="weather-updated"></p>
+          </div>
+          <div class="weather-recommendations">
+            <p class="eyebrow">PILIHAN BARISTA BUAT CUACA INI</p>
+            <h3 id="weather-advice-title">Lagi cari inspirasi?</h3>
+            <p class="weather-advice-copy" id="weather-advice-copy">
+              Rekomendasi menu akan muncul setelah cuaca terbaru berhasil
+              dimuat.
+            </p>
+            <div
+              class="weather-suggestion-list"
+              id="weather-recommendations"
+              aria-live="polite"
+            >
+              <p class="weather-loading">
+                Sebentar ya, lagi cek langit Tangerang Selatan...
+              </p>
+            </div>
+          </div>
+        </div>
+        <p class="weather-footnote">
+          Data cuaca dari Open-Meteo · Lokasi perkiraan Tangerang Selatan
+        </p>
+      </section>
+
+      <section
+        class="menu-section explore-section"
+        id="menu"
+        aria-labelledby="menu-title"
+      >
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">DARI BAR KAMI KE MEJAMU</p>
+            <h2 id="menu-title">Menu yang punya cerita.</h2>
+          </div>
+          <p class="menu-intro">
+            Diracik satu per satu, selalu segar,<br />dan pas buat nemenin
+            harimu.
+          </p>
+        </div>
+
+        <div class="menu-toolbar">
+          <div class="menu-categories" role="group" aria-label="Kategori menu">
+            <button
+              class="menu-category is-active"
+              type="button"
+              data-category="all"
+              aria-pressed="true"
+            >
+              Semua menu
+            </button>
+            <button
+              class="menu-category"
+              type="button"
+              data-category="coffee"
+              aria-pressed="false"
+            >
+              Kopi
+            </button>
+            <button
+              class="menu-category"
+              type="button"
+              data-category="non-coffee"
+              aria-pressed="false"
+            >
+              Non-kopi
+            </button>
+            <button
+              class="menu-category"
+              type="button"
+              data-category="food"
+              aria-pressed="false"
+            >
+              Teman ngopi
+            </button>
+          </div>
+          <span class="menu-note"
+            ><span aria-hidden="true">✳</span> Favorit barista</span
+          >
+        </div>
+
+        <div
+          class="coffee-grid menu-grid"
+          id="menu-grid"
+          aria-live="polite"
+        ></div>
+        <p class="menu-footnote">
+          Harga dalam ribuan rupiah · Opsi susu oat +Rp8.000 · Pajak belum
+          termasuk
+        </p>
+      </section>
+
+      <section class="story-section" id="cerita" aria-labelledby="story-title">
+        <div class="story-image">
+          <img
+            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1100&q=85"
+            alt="Barista menyiapkan secangkir kopi"
+            loading="lazy"
+          />
+          <span class="story-stamp">SEDIAKAN WAKTU<br />UNTUK DIRIMU</span>
+        </div>
+        <div class="story-copy">
+          <p class="eyebrow">SEDIKIT TENTANG KOPI INC</p>
+          <h2 id="story-title">
+            Bukan cuma soal kopi. Ini soal <span>rasa pulang.</span>
+          </h2>
+          <p>
+            Kopi Inc lahir untuk menjadi teman di tengah padatnya dunia kerja.
+            Dari rapat pagi hingga lembur malam, kami menghadirkan kopi yang
+            diracik dengan penuh perhatian untuk menemani setiap ide, keputusan,
+            dan jeda di tengah kesibukan. Karena bagi kami, secangkir kopi bukan
+            sekadar minuman, tetapi bagian dari perjalanan dalam menyelesaikan
+            pekerjaan.
+          </p>
+          <p>
+            Datang sendiri, bawa teman, atau buka laptop kesayanganmu. Meja di
+            sini selalu punya tempat buat kamu.
+          </p>
+          <div class="story-signoff">
+            SSS <span>Dengan sepenuh hati,</span><strong>Tim Kopi Inc</strong>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="visit-section"
+        id="kunjungi"
+        aria-labelledby="visit-title"
+      >
+        <div class="visit-heading">
+          <p class="eyebrow">KAMI SIAP MENYAMBUTMU</p>
+          <h2 id="visit-title">Sampai jumpa di Kopi Inc.</h2>
+        </div>
+        <div class="visit-details">
+          <div class="visit-detail">
+            <span class="visit-icon" aria-hidden="true">⌖</span>
+            <div>
+              <strong>Datang langsung</strong>
+              <p>
+                Jl. Senopati No. 18, Jakarta Selatan<br /><small
+                  >Alamat contoh untuk brand fiktif</small
+                >
+              </p>
+            </div>
+          </div>
+          <div class="visit-detail">
+            <span class="visit-icon" aria-hidden="true">◷</span>
+            <div>
+              <strong>Jam buka</strong>
+              <p>Setiap hari<br />08.00 – 22.00 WIB</p>
+            </div>
+          </div>
+          <div class="visit-detail">
+            <span class="visit-icon" aria-hidden="true">◎</span>
+            <div>
+              <strong>Ikuti cerita kami</strong>
+              <p>@kopiinc<br /><small>Instagram · TikTok</small></p>
+            </div>
+          </div>
+        </div>
+        <a
+          class="map-link"
+          href="https://www.google.com/maps/search/?api=1&query=coffee+shop+Senopati+Jakarta+Selatan"
+          target="_blank"
+          rel="noreferrer"
+          >Lihat area di Google Maps <span aria-hidden="true">↗</span></a
+        >
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a
+        class="brand footer-brand"
+        href="#"
+        aria-label="KopiInc, kembali ke atas"
+      >
+        <span class="brand-mark" aria-hidden="true">K<span>.</span></span>
+        <span>KopiInc<span class="brand-sub">KOPI PARA KORPORAT</span></span>
+      </a>
+      <p>Semoga harimu terasa sedikit lebih baik.</p>
+      <span class="footer-credit"
+        >DIRACIK DENGAN SEPENUH HATI <span aria-hidden="true">♥</span></span
+      >
+    </footer>
+
+    <dialog
+      class="order-dialog"
+      id="order-dialog"
+      aria-labelledby="order-title"
+    >
+      <button
+        class="dialog-close"
+        id="dialog-close"
+        type="button"
+        aria-label="Tutup pesanan"
+      >
+        ×
+      </button>
+      <div class="dialog-content">
+        <p class="eyebrow">PILIHANMU DI KOPI INC</p>
+        <h2 id="order-title">Pesanan kamu.</h2>
+        <div class="order-items" id="order-items"></div>
+        <div class="order-total">
+          <span>Total sementara</span><strong id="order-total">Rp0</strong>
+        </div>
+        <button class="order-submit" id="order-submit" type="button">
+          Buat pesanan demo
+        </button>
+        <button class="order-clear" id="order-clear" type="button">
+          Kosongkan pesanan
+        </button>
+        <p class="order-disclaimer">
+          Contoh website statis — pesanan tidak dikirim ke kedai.
+        </p>
+      </div>
+    </dialog>
+    <button
+      class="order-fab"
+      id="order-open"
+      type="button"
+      aria-label="Buka pesanan"
+    >
+      <span aria-hidden="true">＋</span> Pesanan
+      <span class="order-count" id="order-count">0</span>
+    </button>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
