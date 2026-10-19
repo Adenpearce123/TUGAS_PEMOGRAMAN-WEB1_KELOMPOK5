@@ -101,8 +101,58 @@ const orderDialog = document.querySelector("#order-dialog");
 const orderItems = new Map();
 let activeCategory = "all";
 let toastTimer;
-const weatherEndpoint =
-  "https://api.open-meteo.com/v1/forecast?latitude=-6.2886&longitude=106.7179&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code&timezone=Asia%2FJakarta";
+const defaultWeatherLocation = {
+  latitude: -6.2886,
+  longitude: 106.7179,
+  label: "TANGERANG SELATAN",
+};
+
+function getWeatherLocation() {
+  if (!navigator.geolocation) {
+    return Promise.resolve({
+      ...defaultWeatherLocation,
+      notice: "Browser tidak mendukung lokasi; menampilkan Tangerang Selatan.",
+    });
+  }
+
+  return new Promise((resolve) => {
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        if (
+          !Number.isFinite(coords.latitude) ||
+          !Number.isFinite(coords.longitude)
+        ) {
+          resolve({
+            ...defaultWeatherLocation,
+            notice:
+              "Lokasi perangkat tidak valid; menampilkan Tangerang Selatan.",
+          });
+          return;
+        }
+
+        resolve({
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+          label: "LOKASI KAMU",
+          notice: "Cuaca memakai perkiraan lokasi perangkat kamu.",
+        });
+      },
+      (error) => {
+        const reason =
+          error.code === error.PERMISSION_DENIED
+            ? "Izin lokasi tidak diberikan"
+            : error.code === error.TIMEOUT
+              ? "Lokasi perangkat terlalu lama ditemukan"
+              : "Lokasi perangkat tidak tersedia";
+        resolve({
+          ...defaultWeatherLocation,
+          notice: `${reason}; menampilkan Tangerang Selatan.`,
+        });
+      },
+      { enableHighAccuracy: false, maximumAge: 300000, timeout: 10000 },
+    );
+  });
+}
 
 function formatPrice(amount) {
   return `Rp${new Intl.NumberFormat("id-ID").format(amount)}`;
@@ -340,17 +390,38 @@ function showWeatherError(message) {
   document.querySelector("#weather-recommendations").replaceChildren();
   document.querySelector("#weather-updated").textContent =
     "Coba perbarui lagi beberapa saat.";
+  document.querySelector("#weather-footnote").textContent =
+    "Data cuaca dari Open-Meteo · Pastikan koneksi internet tersedia.";
 }
 
 async function loadWeather() {
   const refreshButton = document.querySelector("#weather-refresh");
   const status = document.querySelector("#weather-status");
+  const locationLabel = document.querySelector("#weather-location");
   refreshButton.disabled = true;
   refreshButton.classList.add("is-loading");
-  status.textContent = "Mengambil data cuaca...";
+  status.textContent = "Mencari lokasi...";
+  locationLabel.textContent = "MENCARI LOKASI";
 
   try {
-    const response = await fetch(weatherEndpoint);
+    const location = await getWeatherLocation();
+    locationLabel.textContent = location.label;
+    status.textContent =
+      location.label === defaultWeatherLocation.label
+        ? "Cuaca Tangerang Selatan"
+        : "Cuaca di lokasi kamu";
+    document.querySelector("#weather-footnote").textContent =
+      `Data cuaca dari Open-Meteo · ${location.notice}`;
+
+    const weatherUrl = new URL("https://api.open-meteo.com/v1/forecast");
+    weatherUrl.search = new URLSearchParams({
+      latitude: String(location.latitude),
+      longitude: String(location.longitude),
+      current:
+        "temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code",
+      timezone: "auto",
+    });
+    const response = await fetch(weatherUrl);
     if (!response.ok) {
       throw new Error(
         `Layanan cuaca merespons dengan kode ${response.status}.`,
@@ -358,6 +429,9 @@ async function loadWeather() {
     }
     const data = await response.json();
     const current = data.current;
+    if (!current || typeof current.time !== "string") {
+      throw new Error("Format waktu pada data cuaca tidak lengkap.");
+    }
     const values = [
       current?.temperature_2m,
       current?.apparent_temperature,
@@ -389,12 +463,7 @@ async function loadWeather() {
     document.querySelector("#weather-advice-title").textContent = advice.title;
     document.querySelector("#weather-advice-copy").textContent = advice.copy;
     document.querySelector("#weather-updated").textContent =
-      `Diperbarui ${new Intl.DateTimeFormat("id-ID", {
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZone: "Asia/Jakarta",
-      }).format(new Date(`${current.time}:00+07:00`))} WIB`;
-    status.textContent = "Cuaca terkini";
+      `Diperbarui ${current.time.slice(-5)} · ${data.timezone_abbreviation || data.timezone || "waktu setempat"}`;
     renderWeatherRecommendations(advice);
   } catch (error) {
     const message =

@@ -99,9 +99,11 @@
             <div class="weather-current-top">
               <span class="weather-live"
                 ><span></span>
-                <span id="weather-status">Mengambil data cuaca...</span></span
+                <span id="weather-status">Mencari lokasi...</span></span
               >
-              <span class="weather-location">TANGERANG SELATAN</span>
+              <span class="weather-location" id="weather-location"
+                >MENCARI LOKASI</span
+              >
             </div>
             <div class="weather-condition">
               <span class="weather-icon" id="weather-icon" aria-hidden="true"
@@ -134,13 +136,16 @@
               aria-live="polite"
             >
               <p class="weather-loading">
-                Sebentar ya, lagi cek langit Tangerang Selatan...
+                Sebentar ya, lagi cek cuaca di lokasimu...
               </p>
             </div>
           </div>
         </div>
         <p class="weather-footnote">
-          Data cuaca dari Open-Meteo · Lokasi perkiraan Tangerang Selatan
+          <span id="weather-footnote">
+            Data cuaca dari Open-Meteo · Meminta izin lokasi untuk cuaca
+            setempat. Jika izin tidak diberikan, memakai Tangerang Selatan.
+          </span>
         </p>
       </section>
 
